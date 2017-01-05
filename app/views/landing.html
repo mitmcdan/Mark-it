@@ -1,0 +1,42 @@
+<div class="container">
+    <br class="hidden-xs" />
+    <br class="hidden-xs" />
+    <br class="hidden-xs" />
+    <br class="hidden-xs" />
+    <br/>
+    <br/>
+    <br/>
+    <div class="row landingbackground">
+        <input type="text" class="col-sm-3 col-xs-6 col-xs-offset-2" id="search" ng-model="items" placeholder="I'm looking for...">
+        <input class="btn btn-default visible-xs-2 hidden-sm hidden-md hidden-lg" type="button" value="Search">
+        <div class="col-sm-3 hidden-xs"> By:
+            <select class="btn " ng-model="selected" style="width:80%">
+                <option ng-repeat="x in names" value="{{x.name}}">{{x.name}}</option>
+            </select>
+        </div>
+        <a class="btn btn-default col-sm-2 hidden-xs" type="button" href="/searchResults/{{items}}/{{selected}}" value="Search ">Search</a>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="hidden-sm hidden-md hidden-lg col-xs-8 col-xs-offset-2"> By:
+            <select class="btn " ng-model="selected" style="width:80%">
+                <option ng-repeat="x in names" value="{{x.name}}">{{x.name}}</option>
+            </select>
+        </div>
+    </div>
+    <br class="hidden-xs" />
+    <br class="hidden-xs" />
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row" ng-model="selected" style="text-align:center">
+        <div ng-repeat="x in links" style="display: inline;" class="center">
+            <a href="{{x.href}}" style="color: black;">
+                <button class=" btn modalBottom">
+                    {{x.name}}
+                </button>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <% if ( user ) { %>
+        <h2>Hello <%=user%> </h2>
+        <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+            <% } %>
+
+                <div>
+                    <h3>Gary</h3>
+                    <p>Kanye 2020</p>
+
+                    <h3>Ryan</h3>
+                    <p>Team MCSWCD fah lyfe</p>
+
+                    <h3>Dong Min</h3>
+                    <p>I am from Korea</p>
+
+                    <h3>Micheal</h3>
+                    <p>My Name is Michael...</p>
+
+                    <h3>Nick</h3>
+                    <p>Some text</p>
+
+                    <h3>Rachel</h3>
+                    <p>I like beaches.</p>
+                </div>
+</body>
+
+</html>

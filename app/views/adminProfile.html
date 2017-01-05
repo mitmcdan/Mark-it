@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <input class="col-xs-8" type="text" placeholder="Search for a farmer..." search ng-model="farmerSearch" />
+        <div class="col-xs-2">
+            <button class="btn modalBottom" style="position:fixed; bottom:30px;">Export as Excel File</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8 panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default" ng-repeat="x in farmer | filter: farmerSearch">
+                <div class="panel-heading modalTop" style="background-color: #E4EBE0;" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#{{x._id}}" class="col-xs-6 col-sm-7 col-md-9">
+            <h4> {{x.first_name}} {{x.last_name}} </h4>
+        </a>
+                    <button class="btn" style="background-color:white;" ng-if="myVar1 || myVar2">Verify</button>
+                    <button class="btn editBtnMain" ng-click="isEditing()" ng-show="!edit" style="background-color:white;">Edit</button>
+                    <button class="btn editBtnMain" ng-click="updateFarmer(x._id, x)" ng-show="edit" style="background-color:white;">Save</button>
+                    <button class="btn" style="background-color:white;">Delete</button>
+                    </h4>
+                </div>
+                <div id="{{x._id}}" class="panel-collapse collapse modalBottom">
+                    <div class="panel-body">
+                        <table class="col-xs-6 col-sm-7 col-md-9">
+                            <tr>
+                                <td><strong>Contact Info</strong></td>
+                            </tr>
+                            <tr>
+                                <td ng-show="!edit">
+                                    {{x.email}}
+                                </td>
+                                <td ng-show="edit">
+                                    <label> Email: </label>
+                                    <input ng-model="x.email" type="text">
+                                </td>
+                                <tr>
+                                    <td ng-show="!edit">
+                                        {{x.address.street}}
+                                    </td>
+                                    <td ng-show="edit">
+                                        <label>Street:</label>
+                                        <input ng-model="x.address.street" type="text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td ng-show="!edit">
+                                        {{x.address.city}}, {{x.address.state}} {{x.address.zip}}</td>
+                                    <td ng-show="edit">
+                                        <label>City:</label>
+                                        <input ng-model="x.address.city" type="text">
+                                        <label>State:</label>
+                                        <input ng-model="x.address.state" type="text">
+                                        <label>Zip Code:</label>
+                                        <input ng-show="edit" ng-model="x.address.zip" type="text">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td ng-show="!edit">
+                                        {{x.phone}}
+                                    </td>
+                                    <td ng-show="edit">
+                                        <label>Phone:</label>
+                                        <input ng-model="x.phone" type="text">
+                                    </td>
+                                </tr>
+                        </table>
+                        <!--  <div>
+                            Verify as Organic
+                            <input type="checkbox" ng-model="myVar1" ng-init="myVar1 = {{x.organic}}">
+                            <br/> Verify as Conservationist
+                            <input type="checkbox" ng-model="myVar2" ng-init="myVar2 = {{x.organic}}">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

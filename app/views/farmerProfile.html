@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="col-xs-8 farmerInfo">
+        <!--    Where the profile info goes    -->
+        <h2>{{farmer.farm_name}}</h2>
+        <button class="btn editBtnMain" ng-click="isEditing()" ng-show="!edit">Edit Info</button>
+        <button class="btn" ng-show="edit" ng-click="updateFarmer()">Save</button>
+        <hr>
+        <div class="row">
+            <div class="col-xs-6 farmerInfo">
+                <h3><b>Name </b></h3>
+                <p ng-show="!edit">{{farmer.first_name}} {{farmer.last_name}}</p>
+                <!-- Cant figure out how to include "farmer.first_name" and also "farmer.last_name" same goes for address field-->
+                <label ng-show="edit">First Name</label>
+                <input ng-show="edit" ng-model="farmer.first_name" type="text">
+                <label ng-show="edit">Last Name</label>
+                <input ng-show="edit" ng-model="farmer.last_name" type="text">
+                <h3><b>Methods</b></h3>
+                <p><b>Organic:</b>
+                    <span ng-show="!edit">{{farmer.organic}}</span>
+                </p>
+                <input ng-show="edit" ng-model="farmer.organic" type="checkbox">
+                <p><b>Conservationist:</b>
+                    <span ng-show="!edit">{{farmer.conservative}}</span>
+                </p>
+                <input ng-show="edit" ng-model="farmer.conservative" type="checkbox">
+                <h3><b>Address </b></h3>
+                <p>
+                    <div ng-show="!edit">
+                        <p>{{combineAddressInfo(farmer.address)}}</p>
+                    </div>
+                    <label ng-show="edit">Street</label>
+                    <input ng-show="edit" ng-model="farmer.address.street" type="text">
+                    <label ng-show="edit">City</label>
+                    <input ng-show="edit" ng-model="farmer.address.city" type="text">
+                    <label ng-show="edit">State</label>
+                    <input ng-show="edit" ng-model="farmer.address.state" type="text">
+                    <label ng-show="edit">Zip</label>
+                    <input ng-show="edit" ng-model="farmer.address.zip" type="text"> </p>
+            </div>
+            <div class="col-xs-6 farmerInfo">
+                <h3><b>Contact Info</b></h3>
+                <p><b>Email:</b>
+                    <span ng-show="!edit">{{farmer.email}}</span>
+                    <input ng-show="edit" ng-model="farmer.email" type="text"> </p>
+                <p><b>Phone:</b>
+                    <span ng-show="!edit">{{farmer.phone}}</span>
+                    <input ng-show="edit" ng-model="farmer.phone" type="text" </p>
+                    <p><b>Website:</b>
+                        <div ng-show="!edit">{{farmer.website}}</div>
+                        <input ng-show="edit" ng-model="website" type="text"> </p>
+                    <p><b>Social:</b>
+                        <div ng-show="!edit">{{farmer.fblink}}</div>
+                        <input ng-show="edit" ng-model="farmer.fblink" type="text"> </p>
+            </div>
+        </div>
+    </div>
+    <!--    Where the farm stand buttons goes   -->
+    <div class="col-xs-4 standsList">
+        <div ng-repeat='salesPoint in farmer.stand' class='text-center'>
+            <button type="button" data-toggle="modal" data-target="#farmStandModal{{$index}}" class="btn farmStand">
+                    <h4><strong>{{salesPoint.name}}</strong></h4>
+                    <h5>{{salesPoint.location.street}}</h5>
+            </button>
+            <div id="farmStandModal{{$index}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="resetEditingModal()" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{farmer.first_name}} {{farmer.last_name}}</h4> </div>
+                        <div class="modal-body center">
+                            <!--Place Modal content here-->
+                                <div>
+                                    <p class="inline"><b>Stand Name:</b>
+                                        <span ng-model="salesPoint.name" ng-show="!editModal">&nbsp{{salesPoint.name}}</span>
+                                    </p>
+                                    <input ng-show="editModal" ng-model="salesPoint.name" type="text"> 
+                                </div>
+                                <div class="address">
+                                    <p class="inline"><b>Stand Address:</b>
+                                        <span ng-show="!editModal">&nbsp{{combineAddressInfo(salesPoint.location)}}</span>
+                                    </p>
+                                    <input class="address" ng-show="editModal" ng-model="salesPoint.location.street" type="text"> 
+                                    <input class="address" ng-show="editModal" ng-model="salesPoint.location.city" type="text"> 
+                                    <input class="address" ng-show="editModal" ng-model="salesPoint.location.state" type="text"> 
+                                    <input class="address" ng-show="editModal" ng-model="salesPoint.location.zip" type="text"> 
+                                </div>
+                                <div>
+                                    <p class="inline"><b>Vegetables:</b>
+                                        <button class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFarmerItem(salesPoint, 'veg')" ng-show="editModal"></button>
+                                        <span ng-model="salesPoint.products.veg" ng-show="!editModal" >&nbsp{{listProduct(salesPoint.products.veg)}}</span>
+                                    </p>
+                                    <div ng-show="editModal" ng-repeat="veg in salesPoint.products.veg track by $index">
+                                        <input class = "editSingleProduct"  ng-model="salesPoint.products.veg[$index]" type="text">
+                                        <button class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteFarmerItem(salesPoint, 'veg')"></button>
+                                    </div>                                    
+                                </div>
+                                <div>
+                                    <p class="inline"><b>Fruit:</b>
+                                        <button class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFarmerItem(salesPoint, 'fruit')" ng-show="editModal"></button> 
+                                        <span ng-model="salesPoint.products.fruit" ng-show="!editModal">&nbsp{{listProduct(salesPoint.products.fruit)}}</span>
+                                    </p>
+                                    <div ng-show="editModal" ng-repeat="fruit in salesPoint.products.fruit track by $index">
+                                        <input class = "editSingleProduct" ng-model="salesPoint.products.fruit[$index]" type="text">
+                                        <button class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteFarmerItem(salesPoint, 'fruit')"></button>
+                                    </div> 
+                                </div>
+                                <div>
+                                    <p class="inline"><b>Flowers:</b>
+                                        <button class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFarmerItem(salesPoint, 'flower')" ng-show="editModal"></button> 
+                                        <span ng-model="salesPoint.products.flower" ng-show="!editModal">&nbsp{{listProduct(salesPoint.products.flower)}}</span>
+                                    </p>
+                                    <div ng-show="editModal" ng-repeat="flower in salesPoint.products.flower track by $index">
+                                        <input class = "editSingleProduct" ng-model="salesPoint.products.flower[$index]" type="text">                        
+                                        <button class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteFarmerItem(salesPoint, 'flower')"></button>
+                                    </div> 
+                                </div>
+                                <div>
+                                    <p class="inline"><b>Meat:</b>
+                                        <button class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFarmerItem(salesPoint, 'meat')" ng-show="editModal"></button>
+                                        <span ng-model="salesPoint.products.meat" ng-show="!editModal">&nbsp{{listProduct(salesPoint.products.meat)}}</span>
+                                    </p>
+                                    <div ng-show="editModal" ng-repeat="meat in salesPoint.products.meat track by $index">
+                                        <input  ng-model="salesPoint.products.meat[$index]" type="text"><button class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteFarmerItem(salesPoint, 'meat')"></button>
+                                    </div>                        
+                                </div>
+                                <div>
+                                    <p class="inline"><b>Commodities:</b>
+                                        <button class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFarmerItem(salesPoint, 'comm')" ng-show="editModal"></button>
+                                        <span ng-model="salesPoint.products.comm" ng-show="!editModal">&nbsp{{listProduct(salesPoint.products.comm)}}</span>
+                                    </p>
+                                    <div ng-show="editModal" ng-repeat="comm in salesPoint.products.comm track by $index">
+                                        <input class = "editSingleProduct" ng-model="salesPoint.products.comm[$index]" type="text">
+                                        <button class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteFarmerItem(salesPoint, 'comm')"></button>
+                                    </div>
+                                </div>
+                                <br class="clearBoth">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" ng-click="deleteStand(salesPoint)">Delete this stand</button>
+                            <button type="button" class="btn btn-default modalEdit" ng-click="isEditingModal()" ng-show="!editModal">Edit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-show="editModal" ng-click="updateStand(salesPoint)">Save</button>
+                        </div> <!--close modal footer -->
+                    </div><!--close modal content -->
+                </div><!--close modal dialog -->
+            </div>  <!--close farmerstandmodal footer -->  
+        </div> <!-- close repeat div -->
+        <div class="text-center">
+            <button type="button" class="btn addStand" ng-click="addStand()">Add Stand</button>
+        </div> <!-- clsoe add stand button div -->
+    </div> <!-- close col-xs-4 -->
+</div> <!-- close row -->
+<!-- Farm Stand Modal Start -->
+<!--Should move modal to seperate html file-->

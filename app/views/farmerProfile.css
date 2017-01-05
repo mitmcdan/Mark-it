@@ -1,0 +1,72 @@
+.farmerInfo {
+    font-size: 18px;
+    padding-left: 5%;
+}
+
+hr {
+    height: 2px;
+    border: none;
+    color: #a0cd83;
+    background-color: #a0cd83;
+}
+
+.standsList {
+    margin-top: 150px;
+}
+
+.farmStand {
+    background-color: #a0cd83;
+    width: 60%;
+    margin-top: 10px;
+}
+
+.addStand {
+    margin-top: 10px;
+}
+
+.editBtnMain {
+    background-color: #a0cd83;
+}
+
+.inline {
+    display: inline;
+    vertical-align: baseline;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.modal{
+    text-align: left;
+}
+
+.modalEdit {
+    background-color: #a0cd83;
+}
+
+.address input{
+    display: block;
+}
+
+.modal-body div {
+    margin-top: 10px;
+}
+
+label {
+    display: block;
+}
+
+.toggleButton {
+    text-align: right;
+    margin: -25px 25px auto auto;
+
+}
+
+inputBoxes, glyphicon glyphicon-minus {
+    display: inline-block;
+}
+
+.editSingleProduct {
+    display: inline;
+}

@@ -1,0 +1,43 @@
+<!--API key Javascript = AIzaSyAUKoYMQzNTKOXA_NyEZukUnOK2jcxAvQs-->
+<!--API key embed = AIzaSyD5kNinZWpbpJR2Jgbh3pHCmeFXGePGrJk-->
+<!--Start Search Results-->
+<div class="row">
+    <div class="col-xs-3">
+        <div class="list-group list sidebar">
+            <a href="#" class="list-group-item" ng-repeat="person in farmer" ng-click="highlightSidebar($index)">                
+                <h5 class="list-group-item-heading"> {{person.farm_name}} </h5>
+                <p class="list-group-item-text sidebar-address">{{getFarmLocation(person)}} </p>
+
+                <p class="list-group-item-text">{{listProducts(person)}}</p>
+            </a>
+            <a ng-if="!farmer.length" href="/landing.html" class="list-group-item">
+                <h5 class="list-group-item-heading">Sorry, no farm stands matched your search.</h5>
+                <p>Please click to search again.</p>
+            </a>
+        </div>
+    </div>
+    <!-- End Search Results-->    <!--Start side bar-->
+    <div class="col-xs-9">
+<!--     	<div id="control">
+    		<h2>Find Local Farmers Markets</h2>
+    		<p>We'll help you locate your closest farmers markets. Simply choose an option below to begin...</p>
+    		<form method="get" id="chooseZip">
+    			<button type="submit" class="learnButton">Use current location</button>
+    			<button type="button" id="searchZip" class="learnButton">Search by Zip Code</button>
+    			<div class="clear"></div>
+    			<div class="zipSearch">
+    				<input id="textZip" type="text" name="zip" placeholder="enter your zip code" autofocus>
+    				<button type="submit" class="learnButton">Search</button>
+    			</div>
+    			<div class="clear"></div>
+    		</form>
+    		<div class="clear"></div>
+    		<div id="results"></div>
+    	</div> -->
+    	<!--End side bar-->
+        
+    	<!-- start google map -->
+    	<div id="map-canvas" class="gmap"></div>
+        <!-- end google map -->
+    </div>
+</div>

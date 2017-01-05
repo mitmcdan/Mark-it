@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MCSWCD</title>
+    <base href="/">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUKoYMQzNTKOXA_NyEZukUnOK2jcxAvQs"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+
+
+    </script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script type="text/javascript" src="/public/js/app.js"></script>
+    <script type="text/javascript" src="/app/controllers/indexCtrl.js"></script>
+    <script type="text/javascript" src="/app/controllers/landingCtrl.js"></script>
+    <script type="text/javascript" src="/app/controllers/searchResutlsCtrl.js"></script>
+    <script type="text/javascript" src="/app/controllers/farmerProfileCtrl.js"></script>
+    <script type="text/javascript" src="/app/controllers/adminCtrl.js"></script>
+    <script type="text/javascript" src="/app/services/authenticationService.js"></script>
+    <script>
+        login = true;
+        register = true;
+
+        function logoutButton() {
+            login = true;
+        }
+
+    </script>
+
+    <!--CSS-->
+    <link rel="stylesheet" href="/app/views/Main.css">
+    <link rel="stylesheet" href="/app/views/searchResults.css">
+    <link rel="stylesheet" href="/app/views/farmerProfile.css">
+    <link rel="stylesheet" href="/app/views/adminProfile.css">
+</head>
+
+
+<body ng-app="mcswcd">
+    <div class="container-fluid">
+        <div class="row" ng-controller="IndexCtrl">
+            <a href="/">
+                <img src="public/img/logo.png" class="col-xs-3" width="400">
+            </a>
+            <!---            <div class="col-xs-offset-10"> -->
+            <button ng-click="profileLink()" class=" btn authButtons col-xs-offset-6 col-xs-1" ng-show="isLoggedIn">Profile</button>
+            <input type="button" class=" btn authButtons col-xs-offset-6 col-xs-2" value="Farmer Login/Register" data-toggle="modal" data-target="#loginModal" ng-hide="isLoggedIn">
+
+            <div id="loginModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Login</h4>
+                            <div class="toggleButton">
+                                <button ng-show="!isRegistering" ng-click="toggleRegister()">Register</button>
+                                <button ng-show="isRegistering" ng-click="toggleRegister()">Login</button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <center>
+                                <form>
+                                    <h3 ng-show="!isRegistering">Login</h3>
+                                    <div ng-show="!isRegistering">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" id="email" ng-model="credentials.email">
+                                    </div>
+                                    <div class="form-group" ng-show="!isRegistering">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" ng-model="credentials.password">
+                                    </div>
+
+                                    <h3 ng-show="isRegistering">Register</h3>
+                                    <div ng-show="isRegistering">
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" id="email" ng-model="credentials.email">
+                                    </div>
+                                    <div class="form-group" ng-show="isRegistering">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" ng-model="credentials.password">
+                                    </div>
+                                    <div class="form-group" ng-show="isRegistering">
+                                        <label for="name">First Name</label>
+                                        <input type="text" class="form-control" id="name" ng-model="credentials.first_name">
+                                    </div>
+                                    <div class="form-group" ng-show="isRegistering">
+                                        <label for="name">Last Name</label>
+                                        <input type="text" class="form-control" id="name" ng-model="credentials.last_name">
+                                    </div>
+                                    <div class="form-group" ng-show="isRegistering">
+                                        <label for="farmname">Farm Name</label>
+                                        <input type="text" class="form-control" id="farmname" ng-model="credentials.farmname">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="regFunc()" ng-show="isRegistering" tabIndex="-1">Register</button>
+                                        <button ng-show="!isRegistering" ng-click="loginFunc()" tabIndex="-1">Login</button>
+                                    </div>
+                                </form>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--           </div>--->
+            <!--            <div class="col-xs-offset-8 col-xs-2">-->
+            <input type="button" class=" btn authButtons col-xs-1" value="Farmer Logout" data-toggle="modal" data-target="#logoutModal" ng-show="isLoggedIn">
+            <div id="logoutModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Logout</h4>
+                        </div>
+                        <div class="modal-body">
+                            <center>
+                                <form>
+                                    <div>
+                                        <label for="email">Are you sure you would like to logout?</label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button ng-click="logoutFunc()">Logout</button>
+                                    </div>
+                                </form>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            </div>-->
+        </div>
+        <div ng-view></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "mcswcd",
+  "version": "0.0.1",
+  "description": "A MEAN app that allows users to manage contact lists",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Rachel Berry",
+  "license": "ISC",
+  "dependencies": {
+    "app-module-path": "^2.0.0",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "mongodb": "^2.2.10",
+    "mongoose": "^4.6.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0"
+  }
+}
